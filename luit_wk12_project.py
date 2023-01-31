@@ -1,4 +1,9 @@
-services = ["EC2", "S3", "Lambda", "DynamoDB", "CloudFormation", "CloudWatch"]
+myServices = []
+
+print(len(myServices))
+
+myServices.extend(["EC2", "S3", "Lambda", "DynamoDB", "CloudFormation", "CloudWatch"])
 
 
-print(len(services))
+print(len(myServices))
+print(myServices)
