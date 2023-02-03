@@ -16,10 +16,10 @@ def randomName():
         suffix = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
         
         #associate suffix with deptName
-        newName = ((deptName, suffix))
+        #newName = ((deptName, suffix))
         
         #join deptName and random suffix into one string
-        finalName = '_'.join(newName)
+        finalName = str(f"{deptName}_{suffix}") 
         
         #add finalNamee to nameList
         nameList.append(finalName)
