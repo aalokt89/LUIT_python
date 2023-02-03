@@ -1,14 +1,13 @@
 import random
 import string
 
-# Online Python - IDE, Editor, Compiler, Interpreter
-
-deptName = input("Enter department name: ").lower()
-nameCount = int(input("Enter number of names to generate: "))
 nameList = []
 
+deptOptions = ["Marketing", "Accounting", "FinOps"]
 
-def randomName():
+
+def randomName(deptName, nameCount):
+    
     #iterate over nameCount
     for i in range(nameCount):
     
@@ -26,5 +25,20 @@ def randomName():
     
     return nameList
     
-randomName()
+#check valid dept option and execute randomize if true
+def deptChecker():
+    deptName = input("Enter department name: ").lower()
+    nameCount = int(input("Enter number of names to generate: "))
+    
+    if deptName in str(deptOptions).lower():
+        randomName(deptName, nameCount)
+        return True
+    else:
+        print(f"{deptName} is not a valid option.")
+        return False
+        
+
+
+
+deptChecker()    
 print(nameList)
