@@ -8,8 +8,11 @@ deptOptions = ["Marketing", "Accounting", "FinOps"]
 def initAsk():
     deptName = input("Enter department name (Marketing, Accounting, or FinOps): ")
     
+    #convert deptOptions to lowercase
+    deptOptions_lower = [i.lower() for i in deptOptions]
+    
     #validate dept name
-    if deptName.lower() in str(deptOptions).lower():
+    if deptName.lower() in deptOptions_lower:
         nameCount = int(input("Enter number of names to generate: "))
         createName(deptName, nameCount)
         
