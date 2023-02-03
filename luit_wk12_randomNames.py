@@ -11,10 +11,9 @@ nameList = []
 def randomName():
     #iterate over nameCount
     for i in range(nameCount):
-        letters = string.ascii_lowercase
-        
-        #create random letters 8 characters long
-        suffix = ''.join(random.choice(letters) for i in range(8))
+    
+        #create random alphanumeric string 8 characters long
+        suffix = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
         
         #associate suffix with deptName
         newName = ((deptName, suffix))
