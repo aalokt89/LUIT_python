@@ -34,7 +34,7 @@ def deptChecker():
         randomName(deptName, nameCount)
         return True
     else:
-        print(f"{deptName} is not a valid option.")
+        print(f"'{deptName}' is not a valid option.")
         return False
         
 
