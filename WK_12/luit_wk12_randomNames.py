@@ -1,12 +1,12 @@
 import random
 import string
 
-nameList = []
+
 deptOptions = ["Marketing", "Accounting", "FinOps"]
 
 
 def initAsk():
-    deptName = input("Enter department name (Marketing, Accounting, or FinOps): ")
+    deptName = input(f"Enter department name ({', '.join(deptOptions)}): ")
     
     #convert deptOptions to lowercase
     deptOptions_lower = [i.lower() for i in deptOptions]
@@ -14,10 +14,10 @@ def initAsk():
     #validate dept name
     if deptName.lower() in deptOptions_lower:
         nameCount = int(input("Enter number of names to generate: "))
-        createName(deptName, nameCount)
+        nameList = createName(deptName, nameCount)
         
         print(nameList)
-        return 0
+        return nameList
         
     else:
         print(f"'{deptName}' is not a valid department. You must choose between 'Marketing, Accounting, or FinOps.'")
@@ -25,7 +25,7 @@ def initAsk():
     
 #functiion to create random names___________________________________________
 def createName(deptName, nameCount):
-    
+    names = []
     #iterate over nameCount
     for i in range(nameCount):
     
@@ -39,8 +39,8 @@ def createName(deptName, nameCount):
         finalName = str(f"{deptName.lower()}_{suffix}") 
         
         #add finalName to nameList
-        nameList.append(finalName)
+        names.append(finalName)
     
-    return nameList
+    return names
     
 initAsk()
