@@ -1,7 +1,9 @@
+#!/usr/bin/env python3
+
 import os
 
 
-def getFiles():
+def getCWDFiles():
     myPWD = os.getcwd()
     myFiles = os.listdir(myPWD)
     fileList = []
@@ -17,6 +19,6 @@ def getFiles():
     return fileList
 
 
-cwdFiles = getFiles()
+cwdFiles = getCWDFiles()
 
 print(cwdFiles)
