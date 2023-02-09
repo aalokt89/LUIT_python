@@ -3,7 +3,7 @@ import os
 
 
 def getDirDetails(path=os.getcwd()):
-    # myFiles = os.listdir(path)
+    path = input("Enter path")
     fileList = []
 
     for root, dirs, files in os.walk(path):
@@ -16,17 +16,8 @@ def getDirDetails(path=os.getcwd()):
 
     return fileList
 
-    # for file in myFiles:
-    #     filePath = os.path.realpath(file)
-    #     fileSize = os.path.getsize(file)
 
-    #     fileInfo = {'path': filePath, 'size:': fileSize}
+pathFiles = getDirDetails()
 
-    #     fileList.append(fileInfo)
-
-    # return fileList
-
-
-pathFiles = getDirDetails("/Users/aaloktrivedi/LUIT/Projects/LUIT_python")
-
-print(pathFiles)
+for i in pathFiles:
+    print(i)

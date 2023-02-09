@@ -20,4 +20,5 @@ def getCWDEntries():
 
 cwdEntries = getCWDEntries()
 
-print(cwdEntries)
+for i in cwdEntries:
+    print(i)
