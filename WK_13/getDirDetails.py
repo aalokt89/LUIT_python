@@ -19,7 +19,7 @@ def getDirDetails(path=os.getcwd()):
         return fileList
 
     else:
-        print(f"Error: The path {path} does not exist.")
+        print(f"Error: The path '{path}' does not exist.")
         getDirDetails()
 
 
