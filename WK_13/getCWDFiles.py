@@ -1,24 +1,23 @@
 #!/usr/bin/env python3
-
 import os
 
 
-def getCWDFiles():
-    myPWD = os.getcwd()
-    myFiles = os.listdir(myPWD)
-    fileList = []
+def getCWDEntries():
+    myCWD = os.getcwd()
+    entryList = []
 
-    for file in myFiles:
-        filePath = os.path.abspath(file)
-        fileSize = os.path.getsize(file)
+    with os.scandir(myCWD) as entries:
+        for entry in entries:
+            entryPath = os.path.abspath(entry)
+            entrySize = os.path.getsize(entry)
 
-        fileInfo = {'path': filePath, 'size:': fileSize}
+            entryInfo = {'path': entryPath, 'size:': entrySize}
 
-        fileList.append(fileInfo)
+            entryList.append(entryInfo)
 
-    return fileList
+    return entryList
 
 
-cwdFiles = getCWDFiles()
+cwdEntries = getCWDEntries()
 
-print(cwdFiles)
+print(cwdEntries)
