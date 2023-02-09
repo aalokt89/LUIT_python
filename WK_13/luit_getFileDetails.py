@@ -17,6 +17,6 @@ def getFiles():
     return fileList
 
 
-pwdFiles = getFiles()
+cwdFiles = getFiles()
 
-print(pwdFiles)
+print(cwdFiles)

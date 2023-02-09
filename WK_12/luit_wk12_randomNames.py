@@ -31,10 +31,7 @@ def createName(deptName, nameCount):
     
         #create random alphanumeric string 8 characters long
         suffix = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
-        
-        #associate suffix with deptName
-        #newName = ((deptName, suffix))
-        
+    
         #join deptName and random suffix into one string
         finalName = str(f"{deptName.lower()}_{suffix}") 
         
