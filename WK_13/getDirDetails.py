@@ -3,6 +3,7 @@ import os
 import datetime
 import json
 
+#
 # convert time to human readable format
 
 
@@ -33,10 +34,10 @@ def getDirDetails(path=os.getcwd()):
 
                 # add file details into a dict
                 fileDict = {
-                    'File Name': file,
-                    'Path': filePath,
-                    'Size(kb)': fileSize,
-                    "Date Created": fileCreationDate
+                    'file_name': file,
+                    'path': filePath,
+                    'size_kb': fileSize,
+                    "date_created": fileCreationDate
                 }
 
                 # add file dicts into the list
