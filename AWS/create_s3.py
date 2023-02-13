@@ -16,11 +16,12 @@ s3 = boto3.resource('s3')
 response = s3_client.list_buckets()
 
 for bucket in response['Buckets']:
-    print(bucket["Name"])
+    print(bucket)
+    print(bucket["CreationDate"])
 
 #list buckets-resource
 for bucket in s3.buckets.all():
-    print(bucket.name)
+    print(bucket)
 
 #upload file
 #s3.Bucket(bucketName).upload_file('/tmp/hello.txt', 'hello.txt')
@@ -32,3 +33,4 @@ for bucket in s3.buckets.all():
 # respsonse = s3_client.deleteBucket(
 #     Bucket = bucketName
 #     )
+
