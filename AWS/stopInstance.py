@@ -7,7 +7,6 @@ ec2 = boto3.resource('ec2')
 
 def getInstanceByTag(tagKey, tagValue):
     instanceList = []
-
     response = ec2.instances.filter(
         Filters=[{
             'Name': 'tag:'+tagKey,
@@ -29,7 +28,8 @@ def stopInstance(tagKey, tagValue):
             ec2.instances.filter(InstanceIds=[instance.id]).stop()
 
             # need to fix
-            pprint(f"instanceId: {instance.id}, instance.instance.state")
+            pprint(
+                f"instanceId: {instance.id}, 'InstanceState: {instance.instance.state}")
 
 
 stopInstance(tagKey='Environment', tagValue='Dev')
