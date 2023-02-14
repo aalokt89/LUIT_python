@@ -2,10 +2,10 @@ import boto3
 from pprint import pprint
 import time
 
+ec2 = boto3.resource('ec2')
+
 
 def stopInstance():
-    ec2 = boto3.resource('ec2')
-
     instances = getInstanceByTag('Environment', 'Prod')
 
     for instance in instances:
@@ -17,7 +17,6 @@ def stopInstance():
 
 
 def getInstanceByTag(tagKey, value):
-    ec2 = boto3.resource('ec2')
     instanceList = []
 
     response = ec2.instances.filter(
