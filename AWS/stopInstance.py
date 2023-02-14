@@ -5,24 +5,13 @@ import time
 ec2 = boto3.resource('ec2')
 
 
-def stopInstance():
-    instances = getInstanceByTag('Environment', 'Prod')
-
-    for instance in instances:
-        if instance.state['Name'] == 'running':
-            ec2.instances.filter(InstanceIds=[instance.id]).stop()
-
-            # need to fix
-            pprint(instance.state)
-
-
-def getInstanceByTag(tagKey, value):
+def getInstanceByTag(tagKey, tagValue):
     instanceList = []
 
     response = ec2.instances.filter(
         Filters=[{
             'Name': 'tag:'+tagKey,
-            'Values': [value]
+            'Values': [tagValue]
         }]
     )
 
@@ -32,4 +21,15 @@ def getInstanceByTag(tagKey, value):
     return instanceList
 
 
-stopInstance()
+def stopInstance(tagKey, tagValue):
+    instances = getInstanceByTag(tagKey, tagValue)
+
+    for instance in instances:
+        if instance.state['Name'] == 'running':
+            ec2.instances.filter(InstanceIds=[instance.id]).stop()
+
+            # need to fix
+            pprint(instance.state)
+
+
+stopInstance(tagKey='Environment', tagValue='Dev')
