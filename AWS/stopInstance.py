@@ -1,5 +1,19 @@
 import boto3
 from pprint import pprint
+import time
+
+
+def stopInstance():
+    ec2 = boto3.resource('ec2')
+
+    instances = getInstanceByTag('Environment', 'Prod')
+
+    for instance in instances:
+        if instance.state['Name'] == 'running':
+            ec2.instances.filter(InstanceIds=[instance.id]).stop()
+
+            # need to fix
+            pprint(instance.state)
 
 
 def getInstanceByTag(tagKey, value):
@@ -14,11 +28,9 @@ def getInstanceByTag(tagKey, value):
     )
 
     for instance in response:
-        instanceList.append(instance.id)
+        instanceList.append(instance)
 
     return instanceList
 
 
-prodInstances = getInstanceByTag('Environment', 'Prod')
-
-print(prodInstances)
+stopInstance()

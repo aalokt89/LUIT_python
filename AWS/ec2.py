@@ -14,12 +14,6 @@ def getInstanceByTag(tagKey, value):
     )
 
     for instance in response:
-        instanceList.append(instance.id)
+        instanceList.append(instance)
 
     return instanceList
-
-
-prodInstances = getInstanceByTag('Environment', 'Prod')
-
-
-print(prodInstances)
