@@ -29,7 +29,7 @@ def stopInstance(tagKey, tagValue):
             ec2.instances.filter(InstanceIds=[instance.id]).stop()
 
             # need to fix
-            pprint(instance.state)
+            pprint(f"instanceId: {instance.id}, instance.instance.state")
 
 
 stopInstance(tagKey='Environment', tagValue='Dev')
