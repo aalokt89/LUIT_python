@@ -2,34 +2,34 @@ import boto3
 from pprint import pprint
 import time
 
-ec2 = boto3.resource('ec2')
+ec2 = boto3.client('ec2', region_name='us-east-1')
 
 
-def getInstanceByTag(tagKey, tagValue):
-    instanceList = []
-    response = ec2.instances.filter(
-        Filters=[{
-            'Name': 'tag:'+tagKey,
-            'Values': [tagValue]
-        }]
+def stopInstanceByTag(tag, value):
+    # get instances by tag and value
+    response = ec2.describe_instances(
+        Filters=[
+            {
+                'Name': 'tag:'+tag,
+                'Values': [value]
+            }
+        ]
     )
 
-    for instance in response:
-        instanceList.append(instance)
+    # stop selected instances if state == running
+    for each in response['Reservations']:
+        for instance in each['Instances']:
 
-    return instanceList
+            if instance['State']['Name'] == 'running':
+                ec2.stop_instances(InstanceIds=[instance['InstanceId']])
 
+                return 0
 
-def stopInstance(tagKey, tagValue):
-    instances = getInstanceByTag(tagKey, tagValue)
-
-    for instance in instances:
-        if instance.state['Name'] == 'running':
-            ec2.instances.filter(InstanceIds=[instance.id]).stop()
-
-            # need to fix
-            pprint(
-                f"instanceId: {instance.id}, 'InstanceState: {instance.instance.state}")
+            else:
+                print(
+                    f"The following instances are not running, and, therefore, cannot be stopped \n {instance['InstanceId']}")
+                print(instance['State']['Name'])
+                return 1
 
 
-stopInstance(tagKey='Environment', tagValue='Dev')
+stopInstanceByTag('Environment', 'Dev')
