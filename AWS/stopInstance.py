@@ -5,12 +5,12 @@ import time
 ec2 = boto3.client('ec2', region_name='us-east-1')
 
 
-def stopInstanceByTag(tag, value):
+def stopInstanceByTag(key, value):
     # get instances by tag and value
     response = ec2.describe_instances(
         Filters=[
             {
-                'Name': 'tag:'+tag,
+                'Name': 'tag:'+key,
                 'Values': [value]
             }
         ]
