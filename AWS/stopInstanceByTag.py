@@ -1,6 +1,5 @@
 import boto3
 from pprint import pprint
-import time
 
 ec2 = boto3.client('ec2', region_name='us-east-1')
 
@@ -10,22 +9,16 @@ def stopInstanceByTag(key, value):
     failList = []
 
     # get instances by tag and value
-    response = ec2.describe_instances(
-        Filters=[
-            {
-                'Name': 'tag:'+key,
-                'Values': [value]
-            }
-        ]
-    )
+    response = ec2.describe_instances(Filters=[ {'Name': 'tag:'+key, 'Values': [value]} ])
 
     # stop selected instances if state == running
     for each in response['Reservations']:
-        for instance in each['Instances']:
+        for instance in each['Instances']: #iterate over reservations to get instance info
 
-            if instance['State']['Name'] == 'running':
+            if instance['State']['Name'] == 'running': #stop instances if they are currently running
                 ec2.stop_instances(InstanceIds=[instance['InstanceId']])
-                successList.append({
+                #store stopped instance ids for later feedback display
+                successList.append({ 
                     'instanceId': instance['InstanceId'],
                     'State': instance['State']['Name']
                 })
@@ -38,5 +31,5 @@ def stopInstanceByTag(key, value):
     print(successList)
     print("----------------------")
 
-
+#call function to execute
 stopInstanceByTag('Environment', 'Dev')
