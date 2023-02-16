@@ -8,6 +8,9 @@ ec2 = boto3.client('ec2', region_name='us-east-1')
 def lambda_handler():
     filteredInstances = []
 
+    successMessage = f"Successfully stopped {len(filteredInstances)} instances."
+    errorMessage = "Error: There are no running instances with the selected filters."
+
     ec2Filters = [
         {
             'Name': 'tag:Environment',
@@ -28,12 +31,14 @@ def lambda_handler():
 
     if len(filteredInstances) > 0:
         ec2.stop_instances(InstanceIds=filteredInstances)
+        print(successMessage)
         return {
             "statusCode": 200,
-            "body": json.dumps(f"Successfully stopped {len(filteredInstances)} instances.")
+            "body": json.dumps(successMessage)
         }
     else:
+        print(errorMessage)
         return {
             "statusCode": 100,
-            "body": json.dumps("Error: There are no running instances with the selected filters to stop.")
+            "body": json.dumps(errorMessage)
         }
