@@ -1,6 +1,6 @@
 import boto3
-from pprint import pprint
-import time
+import json
+import pprint
 
 ec2 = boto3.client('ec2', region_name='us-east-1')
 
@@ -28,6 +28,12 @@ def lambda_handler():
 
     if len(filteredInstances) > 0:
         ec2.stop_instances(InstanceIds=filteredInstances)
-        print(f"Successfully stopped {len(filteredInstances)} instances.")
+        return {
+            "statusCode": 200,
+            "body": json.dumps(f"Successfully stopped {len(filteredInstances)} instances.")
+        }
     else:
-        print("There are no running instances with the selected filters to stop.")
+        return {
+            "statusCode": 100,
+            "body": json.dumps("Error: There are no running instances with the selected filters to stop.")
+        }
