@@ -31,6 +31,3 @@ def lambda_handler():
         print(f"Successfully stopped {len(filteredInstances)} instances.")
     else:
         print("There are no running instances with the selected filters to stop.")
-
-
-lambda_handler()
