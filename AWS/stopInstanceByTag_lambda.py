@@ -5,7 +5,7 @@ import pprint
 ec2 = boto3.client('ec2', region_name='us-east-1')
 
 
-def lambda_handler():
+def lambda_handler(event, context):
     filteredInstances = []
 
     successMessage = f"Successfully stopped {len(filteredInstances)} instances."
