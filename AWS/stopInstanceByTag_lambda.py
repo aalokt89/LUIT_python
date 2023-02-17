@@ -41,6 +41,3 @@ def lambda_handler(event, context):
             "statusCode": 100,
             "body": json.dumps(errorMessage)
         }
-
-
-lambda_handler(event=None, context=None)
