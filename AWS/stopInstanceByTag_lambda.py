@@ -2,7 +2,7 @@ import boto3
 import json
 import pprint
 
-ec2 = boto3.client('ec2', region_name='us-east-1')
+ec2 = boto3.resource('ec2', region_name='us-east-1')
 
 
 def lambda_handler(event, context):
@@ -22,15 +22,14 @@ def lambda_handler(event, context):
         }]
 
     # get instances by tag and 'running' state
-    instances = ec2.describe_instances(Filters=ec2Filters)
+    instances = ec2.instances.filter(Filters=ec2Filters)
 
     # get filtered instance ids and add them to runningInstances
-    for each in instances['Reservations']:
-        for instance in each['Instances']:
-            filteredInstances.append(instance['InstanceId'])
+    for instance in instances:
+        filteredInstances.append(instance.id)
 
     if len(filteredInstances) > 0:
-        ec2.stop_instances(InstanceIds=filteredInstances)
+        ec2.instances.filter(InstanceIds=filteredInstances).stop()
         print(successMessage)
         return {
             "statusCode": 200,
@@ -42,3 +41,6 @@ def lambda_handler(event, context):
             "statusCode": 100,
             "body": json.dumps(errorMessage)
         }
+
+
+lambda_handler(event=None, context=None)
