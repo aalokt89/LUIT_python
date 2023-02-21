@@ -13,4 +13,4 @@ def createSQS(queueName):
 
 # createSQS('DateTime_UUID_sqs')
 
-print(sqs.get_queue_by_name(QueueName='DateTime_UUID_sqs'))
+print(sqs.get_queue_by_name(QueueName='DateTime_UUID_sqs').url)
