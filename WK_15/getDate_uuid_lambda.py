@@ -10,7 +10,10 @@ GET_UUID = "/random-uuid"
 
 def lambda_handler(event, context):
     apiEvent = event['rawPath']
-    sqs = boto3.client('sqs')
+    sqs = boto3.resource('sqs')
+
+    myQueue = sqs.Queue(
+        'https://sqs.us-east-1.amazonaws.com/054301730155/DateTime_UUID_sqs')
 
     try:
         if apiEvent == GET_DATETIME:
@@ -19,14 +22,15 @@ def lambda_handler(event, context):
             message = f"Current time: {currentDateTime}."
             print(message)
 
-            return currentDateTime
-
         elif apiEvent == GET_UUID:
             randUUID = str(uuid.uuid4())
             message = f"Random uuid: {randUUID}."
             print(message)
 
-            return randUUID
+        response = myQueue.send_message(
+            MessageBody=message
+        )
+        return response
 
     except Exception as e:
         print(e)
