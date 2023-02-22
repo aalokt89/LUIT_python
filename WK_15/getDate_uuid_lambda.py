@@ -14,6 +14,8 @@ def lambda_handler(event, context):
     apiEvent = event['rawPath']
     sqs = boto3.resource('sqs')
 
+    myQueue = sqs.Queue(queue)
+
     try:
         if apiEvent == DATETIME:
             currentDateTime = datetime.strftime(
@@ -26,7 +28,7 @@ def lambda_handler(event, context):
             message = f"Random uuid: {randUUID}."
             print(message)
 
-        response = queue.send_message(
+        response = myQueue.send_message(
             MessageBody=message
         )
         return response
