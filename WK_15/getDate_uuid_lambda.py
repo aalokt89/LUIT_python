@@ -28,6 +28,9 @@ def lambda_handler(event, context):
         response = myQueue.send_message(
             MessageBody=message
         )
+        else:
+            print(f"Error: '{apiEvent}' does not exist.")
+
         print(message)
         print(f"MessageID: '{response['MessageId']}' sent to queue.")
 
