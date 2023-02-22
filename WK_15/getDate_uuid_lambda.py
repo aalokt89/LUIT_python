@@ -13,13 +13,12 @@ queue = os.environ['QUEUE']
 def lambda_handler(event, context):
     apiEvent = event['rawPath']
     sqs = boto3.resource('sqs')
-
     myQueue = sqs.Queue(queue)
 
     try:
         if apiEvent == DATETIME:
             currentDateTime = datetime.strftime(
-                datetime.now(), "%d/%m/%Y, %H:%M:%S")
+                datetime.now(), "%m-%d-%Y, %H:%M:%S")
             message = f"Current time: {currentDateTime}."
             print(message)
 
@@ -31,6 +30,7 @@ def lambda_handler(event, context):
         response = myQueue.send_message(
             MessageBody=message
         )
+
         return response
 
     except Exception as e:
