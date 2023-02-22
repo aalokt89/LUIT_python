@@ -19,19 +19,20 @@ def lambda_handler(event, context):
         if apiEvent == DATETIME:
             currentDateTime = datetime.strftime(
                 datetime.now(), "%m-%d-%Y, %H:%M:%S")
-            message = f"Current time: {currentDateTime}."
+            message = f"current_time: {currentDateTime}"
             print(message)
 
         elif apiEvent == UUID:
             randUUID = str(uuid.uuid4())
-            message = f"Random uuid: {randUUID}."
+            message = f"uuid: {randUUID}"
             print(message)
 
         response = myQueue.send_message(
             MessageBody=message
         )
+        print(f"MessageID: '{response['MessageId']}' sent to queue.")
 
-        return response
+        return json.dumps(message)
 
     except Exception as e:
         print(e)
