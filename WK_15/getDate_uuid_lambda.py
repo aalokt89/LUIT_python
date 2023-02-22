@@ -24,12 +24,12 @@ def lambda_handler(event, context):
         elif apiEvent == UUID:
             randUUID = str(uuid.uuid4())
             message = f"uuid: {randUUID}"
+        else:
+            print(f"Error: '{apiEvent}' does not exist.")
 
         response = myQueue.send_message(
             MessageBody=message
         )
-        else:
-            print(f"Error: '{apiEvent}' does not exist.")
 
         print(message)
         print(f"MessageID: '{response['MessageId']}' sent to queue.")
