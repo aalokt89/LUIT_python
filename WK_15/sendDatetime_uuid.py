@@ -17,20 +17,19 @@ def lambda_handler(event, context):
 
     try:
         if apiEvent == DATETIME:
-            currentDateTime = datetime.strftime(
-                datetime.now(), "%m-%d-%Y, %H:%M:%S")
-            message = f"current_time: {currentDateTime} (UTC)"
+            message = datetime.strftime(
+                datetime.now(), "%m-%d-%Y, %I:%M:%S %p (UTC)")
 
         elif apiEvent == UUID:
-            randUUID = str(uuid.uuid4())
-            message = f"uuid: {randUUID}"
+            message = str(uuid.uuid4())
 
         else:
             print(f"Error: '{apiEvent}' does not exist.")
 
+        print(message)
+
         response = queue.send_message(MessageBody=message)
 
-        print(message)
         print(f"MessageID: '{response['MessageId']}' sent to queue.")
 
         return json.dumps(message)
