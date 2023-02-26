@@ -1,9 +1,9 @@
 import boto3
 
+sns = boto3.resource('sns', region_name='us-east-1')
+
 
 def createSNS(topicName):
-    sns = boto3.resource('sns', region_name='us-east-1')
-
     try:
         topic = sns.create_topic(Name=topicName)
         print(topic.arn)
@@ -12,4 +12,9 @@ def createSNS(topicName):
         print(e)
 
 
-createSNS('dateTime-uuid-topic')
+# createSNS('datetime-uuid-topic')
+
+topics = sns.topics.all()
+for topic in topics:
+    if 'dateTime-uuid-topic' in topic.arn:
+        print(topic.arn)
